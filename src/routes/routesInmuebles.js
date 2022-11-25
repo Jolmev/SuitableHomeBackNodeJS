@@ -6,19 +6,19 @@ const router = express.Router();
 let inmuebleSchema = require('../models/Inmuebles');
 
 //Crear inmueble
-router.route('/crear-inmueble').post((req, res, next) => {
-    inmuebleSchema.create(req.body, (error, data) => {
-        if (error){
-            console.log(error);
-            return next(error);
-        }
-        else{
-            console.log(data);
-            console.log("Inmueble creado correctamente");
-            res.json(data);
-        }
-    });
-});
+// router.route('/crear-inmueble').post((req, res, next) => {
+//     inmuebleSchema.create(req.body, (error, data) => {
+//         if (error){
+//             console.log(error);
+//             return next(error);
+//         }
+//         else{
+//             console.log(data);
+//             console.log("Inmueble creado correctamente");
+//             res.json(data);
+//         }
+//     });
+// });
 
 //Leer inmuebles
 router.route('/listar-inmuebles').get((req, res, next) =>{
@@ -35,25 +35,25 @@ router.route('/listar-inmuebles').get((req, res, next) =>{
 });
 
 //Actualizar inmuebles
-router.route("/actualizar-inmueble/:id").put((req, res, next) =>{
-    inmuebleSchema.findByIdAndUpdate(
-        req.params.id,
-        {
-            $set: req.body
-        },
-        (error, data) =>{
-            if (error){
-                console.log(error);
-                return next(error);
-            }
-            else{
-                console.log(data);
-                console.log("Inmueble actualizado correctamente");
-                res.json(data);
-            }
-        }
-    );
-});
+// router.route("/actualizar-inmueble/:id").put((req, res, next) =>{
+//     inmuebleSchema.findByIdAndUpdate(
+//         req.params.id,
+//         {
+//             $set: req.body
+//         },
+//         (error, data) =>{
+//             if (error){
+//                 console.log(error);
+//                 return next(error);
+//             }
+//             else{
+//                 console.log(data);
+//                 console.log("Inmueble actualizado correctamente");
+//                 res.json(data);
+//             }
+//         }
+//     );
+// });
 
 //Borrar inmuebles
 router.route("/borrar-inmueble/:id").delete((req, res, next) =>{
@@ -73,7 +73,7 @@ router.route("/borrar-inmueble/:id").delete((req, res, next) =>{
 });
 
 //Obtener un inmueble
-router.route("/obtener-estudiante/:id").get((req, res, next) =>{
+router.route("/obtener-inmueble/:id").get((req, res, next) =>{
     inmuebleSchema.findById(req.params.id, (error, data) =>{
         if (error){
             console.log(error);
@@ -89,7 +89,12 @@ router.route("/obtener-estudiante/:id").get((req, res, next) =>{
 //Busqueda de inmuebles
 router.route('/busqueda-inmuebles/:texto').get((req, res, next) =>{
     inmuebleSchema.find(
-        {Ciudad: {$regex: req.params.texto}}, 
+        {
+            $or: [
+                { Departamento: {$regex: req.params.texto, $options: "i"}},
+                { Ciudad: {$regex: req.params.texto, $options: "i"}}
+            ],
+        },
         (error, data) => {
         if (error){
             console.log(error);
