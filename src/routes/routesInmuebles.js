@@ -35,42 +35,42 @@ router.route('/listar-inmuebles').get((req, res, next) =>{
 });
 
 //Actualizar inmuebles
-// router.route("/actualizar-inmueble/:id").put((req, res, next) =>{
-//     inmuebleSchema.findByIdAndUpdate(
-//         req.params.id,
-//         {
-//             $set: req.body
-//         },
-//         (error, data) =>{
-//             if (error){
-//                 console.log(error);
-//                 return next(error);
-//             }
-//             else{
-//                 console.log(data);
-//                 console.log("Inmueble actualizado correctamente");
-//                 res.json(data);
-//             }
-//         }
-//     );
-// });
+router.route("/actualizar-inmueble/:id").put((req, res, next) =>{
+    inmuebleSchema.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: req.body
+        },
+        (error, data) =>{
+            if (error){
+                console.log(error);
+                return next(error);
+            }
+            else{
+                console.log(data);
+                console.log("Inmueble actualizado correctamente");
+                res.json(data);
+            }
+        }
+    );
+});
 
 //Borrar inmuebles
-router.route("/borrar-inmueble/:id").delete((req, res, next) =>{
-    inmuebleSchema.findByIdAndRemove(req.params.id, (error, data) =>{
-        if (error){
-            console.log(error);
-            return next(error);
-        }
-        else{
-            console.log(data);
-            console.log("Inmueble eliminado correctamente");
-            res.status(200).json({
-                msg : data
-            });
-        }
-    });
-});
+// router.route("/borrar-inmueble/:id").delete((req, res, next) =>{
+//     inmuebleSchema.findByIdAndRemove(req.params.id, (error, data) =>{
+//         if (error){
+//             console.log(error);
+//             return next(error);
+//         }
+//         else{
+//             console.log(data);
+//             console.log("Inmueble eliminado correctamente");
+//             res.status(200).json({
+//                 msg : data
+//             });
+//         }
+//     });
+// });
 
 //Obtener un inmueble
 router.route("/obtener-inmueble/:id").get((req, res, next) =>{
