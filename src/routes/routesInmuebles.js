@@ -35,7 +35,7 @@ router.route('/listar-inmuebles').get((req, res, next) =>{
 });
 
 //Actualizar inmuebles
-router.route("/actualizar-inmueble/:id").put((req, res, next) =>{
+router.route("/propiedades-inmueble/:id").put((req, res, next) =>{
     inmuebleSchema.findByIdAndUpdate(
         req.params.id,
         {
